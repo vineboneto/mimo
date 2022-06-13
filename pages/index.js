@@ -22,7 +22,9 @@ export default function Home() {
 
       <div className={styles.content}>
         <h2 className={styles.title}>Eternas memórias</h2>
-        <ReactAudioPlayer src="/audio/music.mp3" controls autoPlay loop />
+        <div className={styles.audioPlayer}>
+          <ReactAudioPlayer src="/audio/music.mp3" controls autoPlay loop />
+        </div>
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
