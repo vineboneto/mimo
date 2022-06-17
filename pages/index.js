@@ -12,7 +12,7 @@ import 'swiper/css/effect-cube'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const tracks = ['/audio/music.mp3', '/audio/music2.mp3']
+  const tracks = ['/audio/music.mp3', '/audio/music2.mp3', '/audio/music3.mp3']
 
   const [track, setTrack] = useState(tracks[0])
   const ref = useRef()
