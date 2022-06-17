@@ -4,13 +4,12 @@ import Image from 'next/image'
 
 import ReactAudioPlayer from 'react-audio-player'
 
-import { Autoplay, Pagination, Navigation } from 'swiper'
+import { Autoplay, Pagination, Navigation, EffectCube } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import 'swiper/css/effect-cube'
 import styles from '../styles/Home.module.css'
-
-const tracks = []
 
 export default function Home() {
   const tracks = ['/audio/music.mp3', '/audio/music2.mp3']
@@ -47,6 +46,7 @@ export default function Home() {
           <ReactAudioPlayer ref={ref} src={track} controls onEnded={() => nextTrack()} />
         </div>
         <Swiper
+          effect="cube"
           spaceBetween={30}
           centeredSlides={true}
           speed={2500}
@@ -58,9 +58,15 @@ export default function Home() {
             clickable: true,
             dynamicBullets: true,
           }}
+          cubeEffect={{
+            shadow: true,
+            slideShadows: true,
+            shadowOffset: 20,
+            shadowScale: 1,
+          }}
           loop
           slidesPerView={1}
-          modules={[Autoplay, Pagination, Navigation]}
+          modules={[Autoplay, Pagination, Navigation, EffectCube]}
           className="mySwiper"
         >
           <SwiperSlide>
