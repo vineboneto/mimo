@@ -1,18 +1,39 @@
+import { useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
 import ReactAudioPlayer from 'react-audio-player'
-import AudioPlayer from 'react-h5-audio-player'
 
 import { Autoplay, Pagination, Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import 'react-h5-audio-player/lib/styles.css'
-
 import styles from '../styles/Home.module.css'
 
+const tracks = []
+
 export default function Home() {
+  const tracks = ['/audio/music.mp3', '/audio/music2.mp3']
+
+  const [track, setTrack] = useState(tracks[0])
+  const ref = useRef()
+
+  function nextTrack() {
+    const currentIndex = tracks.indexOf(track)
+    const nextIndex = currentIndex + 1
+    const lastIndex = tracks.length - 1
+    const nextElement = tracks[nextIndex > lastIndex ? 0 : nextIndex]
+    setTrack(nextElement)
+  }
+
+  useEffect(() => {
+    if (ref.current) {
+      setTimeout(() => {
+        ref.current.audioEl.current.play()
+      }, 1000)
+    }
+  }, [track])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -23,7 +44,7 @@ export default function Home() {
       <div className={styles.content}>
         <h2 className={styles.title}>Eternas memórias</h2>
         <div className={styles.audioPlayer}>
-          <ReactAudioPlayer src="/audio/music.mp3" controls autoPlay loop />
+          <ReactAudioPlayer ref={ref} src={track} controls onEnded={() => nextTrack()} />
         </div>
         <Swiper
           spaceBetween={30}
@@ -37,12 +58,6 @@ export default function Home() {
             clickable: true,
             dynamicBullets: true,
           }}
-          // breakpoints={{
-          //   900: {
-          //     slidesPerView: 3,
-          //     spaceBetween: 30,
-          //   },
-          // }}
           loop
           slidesPerView={1}
           modules={[Autoplay, Pagination, Navigation]}
